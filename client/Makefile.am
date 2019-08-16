@@ -1,10 +1,8 @@
-## automake.am
+## Makefile.am
 ##
-## Automake.am for RACodec/client
+## Makefile.am for NetISDN/client
 ##
-## (C) Copyright 2002-2006 Fred Gleason <fredg@paravelsystems.com>
-##
-##      $Id: Makefile.am,v 1.3 2008/09/25 17:54:41 cvs Exp $
+## (C) Copyright 2002-2019 Fred Gleason <fredg@paravelsystems.com>
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -22,8 +20,7 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-AM_CFLAGS = -Wall -DPREFIX=\"$(prefix)\"
-INCLUDES = -I$(top_srcdir)/lib
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -I$(top_srcdir)/lib
 LIBS = -L$(top_srcdir)/lib
 
 EXTRA_DIST = encoder.c decoder.c pa_encoder.c pa_decoder.c

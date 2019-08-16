@@ -453,3 +453,5 @@
 	* Fixed bugs in 'lib/cmd_switch.cpp', 'lib/rtpreceptionreport.h',
 	'lib/rtpcontrolheader.h' and 'lib/rtpheader.cpp' that broke the
 	build under OpenSuSE 11.1.
+2019-08-16 Fred Gleason <fredg@paravelsystems.com>
+	* Modernized the Autotool buildchain.

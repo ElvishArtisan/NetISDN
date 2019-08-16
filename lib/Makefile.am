@@ -1,10 +1,8 @@
-## automake.am
+## Makefile.am
 ##
-## Automake.am for Netisdn/lib
+## Makefile.am for NetISDN/lib
 ##
-## (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
-##
-##      $Id: Makefile.am,v 1.26 2009/01/26 13:05:20 pcvs Exp $
+## (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 ##
 ## Use automake to process this into a Makefile.in
 ##

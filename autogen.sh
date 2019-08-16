@@ -22,7 +22,13 @@
 ##    Boston, MA  02111-1307  USA
 ##
 
-libtoolize --force 2>&1 | sed '/^You should/d' || {
+mkdir -p m4
+
+libtoolize=libtoolize
+if which glibtoolize > /dev/null 2>&1; then
+      libtoolize=glibtoolize
+fi
+$libtoolize --force 2>&1 | sed '/^You should/d' || {
     echo "libtool failed, exiting..."
     exit 1
 }
@@ -32,8 +38,8 @@ aclocal $ACLOCAL_FLAGS || {
     exit 1
 }
 
-automake --add-missing --foreign || {
-    echo "automake --add-missing --foreign failed, exiting..."
+automake --add-missing -Wno-portability || {
+    echo "automake --add-missing failed, exiting..."
     exit 1
 }
 

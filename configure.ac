@@ -1,16 +1,28 @@
-dnl configure.in
+dnl configure.ac
 dnl
 dnl Autoconf configuration for NetISDN.
 dnl Use autoconf to process this into a configure script
 dnl
-dnl   (C) Copyright 2002-2007 Fred Gleason <fredg@paravelsystems.com>
+dnl   (C) Copyright 2002-2019 Fred Gleason <fredg@paravelsystems.com>
 dnl
-dnl      $Id: configure.in,v 1.16 2008/11/13 20:50:09 cvs Exp $
+dnl  This program is free software; you can redistribute it and/or modify
+dnl  it under the terms of the GNU General Public License version 2 as
+dnl  published by the Free Software Foundation.
+dnl
+dnl  This program is distributed in the hope that it will be useful,
+dnl  but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl  GNU General Public License for more details.
+dnl
+dnl  You should have received a copy of the GNU General Public
+dnl  License along with this program; if not, write to the Free Software
+dnl  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 dnl
 
-AC_INIT(netisdn,`cat PACKAGE_VERSION`,Fred Gleason <fredg@paravelsystems.com>)
-AM_INIT_AUTOMAKE(netisdn,`cat PACKAGE_VERSION`)
+AC_INIT(netisdn,m4_esyscmd(cat PACKAGE_VERSION))
+AM_INIT_AUTOMAKE
 AC_SUBST(RPM_RELEASE,1)
+m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 #
 # Some Fully Resolved Install Paths
@@ -93,17 +105,18 @@ AC_CHECK_HEADER(GeoIPCity.h,[],
 #
 # Check for NetFilter (Needed for packet loss simulator)
 #
-AC_CHECK_HEADER(libnetfilter_queue/libnetfilter_queue.h,[NETFILTER_FOUND=yes],[])
+AC_CHECK_HEADER(libnetfilter_queue/libnetfilter_queue.h,[NETFILTER_FOUND=yes],[NETFILTER_FOUND=no])
 if test $NETFILTER_FOUND ; then
   AM_CONDITIONAL(BUILD_NETFILTER,true)
 else
   AM_CONDITIONAL(BUILD_NETFILTER,false)
 fi
+AC_CONFIG_MACRO_DIR([m4])
 
 #
 # Check for Vorbis
 #
-AC_CHECK_HEADER(vorbis/vorbisfile.h,[VORBIS_FOUND=yes],[])
+AC_CHECK_HEADER(vorbis/vorbisfile.h,[VORBIS_FOUND=yes],[VORBIS_FOUND=no])
 if test $VORBIS_FOUND = yes ; then
   if test -z $VORBIS_DISABLED ; then
     AC_DEFINE(HAVE_VORBIS,yes)
@@ -119,7 +132,7 @@ fi
 #
 # Check for Speex
 #
-AC_CHECK_HEADER(speex/speex.h,[SPEEX_FOUND=yes],[])
+AC_CHECK_HEADER(speex/speex.h,[SPEEX_FOUND=yes],[SPEEX_FOUND=no])
 if test $SPEEX_FOUND = yes ; then
   if test -z $SPEEX_DISABLED ; then
     AC_DEFINE(HAVE_SPEEX)
@@ -132,11 +145,10 @@ else
   AC_SUBST(LIBSPEEX,"")
 fi
 
-echo FLAG: $MPEG_L3_DISABLED
 #
 # Check for MPEG L3 Libraries
 #
-AC_CHECK_HEADER(lame/lame.h,[LAME_FOUND=yes],[])
+AC_CHECK_HEADER(lame/lame.h,[LAME_FOUND=yes],[LAME_FOUND=no])
 AC_CHECK_HEADER(mad.h,[MAD_FOUND=yes],[])
 if test $LAME_FOUND ; then
   if test $MAD_FOUND ; then
@@ -177,23 +189,23 @@ else
 fi
 
 AC_CONFIG_FILES([ \
-    ./Makefile \
-    ./rc.netisdn \
-    ./netisdn.spec \
-    ./slack-desc \
-    ./make_slack \
-    ./helpers/Makefile \
-    ./icons/Makefile \
-    ./icons/autorun.inf \
-    ./lib/Makefile \
-    ./netisdn/Makefile \
-    ./netsipd/Makefile \
-    ./netadmin/Makefile \
-    ./netfilter/Makefile \
-    ./client/Makefile \
-    ./xdg/Makefile \
-    ./docs/Makefile \
-    ./docs/tables/Makefile ])
+    Makefile \
+    rc.netisdn \
+    netisdn.spec \
+    slack-desc \
+    make_slack \
+    helpers/Makefile \
+    icons/Makefile \
+    icons/autorun.inf \
+    lib/Makefile \
+    netisdn/Makefile \
+    netsipd/Makefile \
+    netadmin/Makefile \
+    netfilter/Makefile \
+    client/Makefile \
+    xdg/Makefile \
+    docs/Makefile \
+    docs/tables/Makefile ])
 AC_OUTPUT()
 
 chmod 755 ./rc.netisdn
