@@ -2,7 +2,7 @@
 //
 // A statistics display dialog for NetISDN.
 //
-//   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as
@@ -21,6 +21,8 @@
 
 #ifndef STATS_DIALOG_H
 #define STATS_DIALOG_H
+
+#include <stdint.h>
 
 #include <qdialog.h>
 #include <qlineedit.h>

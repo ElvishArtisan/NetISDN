@@ -2,9 +2,7 @@
 //
 // List NetISDN Users
 //
-//   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
-//
-//      $Id: list_users.cpp,v 1.9 2009/01/29 18:16:28 pcvs Exp $
+//   (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -21,6 +19,7 @@
 //
 
 #include <math.h>
+#include <unistd.h>
 
 #include <qdialog.h>
 #include <qstring.h>

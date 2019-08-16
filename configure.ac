@@ -105,8 +105,8 @@ AC_CHECK_HEADER(GeoIPCity.h,[],
 #
 # Check for NetFilter (Needed for packet loss simulator)
 #
-AC_CHECK_HEADER(libnetfilter_queue/libnetfilter_queue.h,[NETFILTER_FOUND=yes],[NETFILTER_FOUND=no])
-if test $NETFILTER_FOUND ; then
+AC_CHECK_HEADER(libnetfilter_queue/libnetfilter_queue.h,[NETFILTER_FOUND=yes],[])
+if test $NETFILTER_FOUND = yes ; then
   AM_CONDITIONAL(BUILD_NETFILTER,true)
 else
   AM_CONDITIONAL(BUILD_NETFILTER,false)
@@ -148,7 +148,7 @@ fi
 #
 # Check for MPEG L3 Libraries
 #
-AC_CHECK_HEADER(lame/lame.h,[LAME_FOUND=yes],[LAME_FOUND=no])
+AC_CHECK_HEADER(lame/lame.h,[LAME_FOUND=yes],[])
 AC_CHECK_HEADER(mad.h,[MAD_FOUND=yes],[])
 if test $LAME_FOUND ; then
   if test $MAD_FOUND ; then

@@ -2,9 +2,7 @@
 //
 // A container class for codec metadata and statistics.
 //
-//   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
-//
-//    $Id: codec_stats.cpp,v 1.5 2008/10/07 16:40:32 cvs Exp $
+//   (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -20,8 +18,9 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-#include <codec_stats.h>
+#include <stdint.h>
 
+#include <codec_stats.h>
 
 CodecStats::CodecStats()
 {

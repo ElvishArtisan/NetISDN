@@ -2,7 +2,7 @@
 //
 // A statistics display dialog for NetISDN.
 //
-//   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as
@@ -23,7 +23,6 @@
 #include <qpainter.h>
 
 #include <stats_dialog.h>
-
 
 StatsDialog::StatsDialog(CodecStats *stats,QWidget *parent,const char *name)
   : QDialog(parent,name,false)

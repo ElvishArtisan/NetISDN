@@ -352,7 +352,9 @@ Codec::Codec(unsigned id,QObject *parent,const char *name)
   codec_src_state=NULL;
   codec_rtp_socket=NULL;
   codec_rtcp_socket=NULL;
+#ifdef HAVE_VORBIS
   codec_vorbis_decoder_ready=false;
+#endif  // HAVE_VORBIS
   codec_recv_total_packets_lost=0;
   codec_recv_interval_packets_lost=0;
   codec_recv_sequence_lo_number=0;
@@ -683,6 +685,7 @@ void Codec::setLoopback(bool state)
 void Codec::setCodebook(const QString &start_pkt,const QString &comment_pkt,
 			const QString &codebook_pkt)
 {
+#ifdef HAVE_VORBIS
   unsigned char data[32768];
   ogg_packet op;
 
@@ -738,6 +741,7 @@ void Codec::setCodebook(const QString &start_pkt,const QString &comment_pkt,
   vorbis_synthesis_init(&codec_vorbis_recv_dsp_state,&codec_vorbis_recv_info);
   vorbis_block_init(&codec_vorbis_recv_dsp_state,&codec_vorbis_recv_block);
   codec_vorbis_decoder_ready=true;
+#endif  // HAVE_VORBIS
 }
 
 
@@ -1090,7 +1094,7 @@ void Codec::InitLayer3Encoder(unsigned chans,unsigned samprate,unsigned bitrate)
       break;
   }
   lame_set_strict_ISO(codec_lame_gfp,0);
-  lame_set_padding_type(codec_lame_gfp,PAD_NO);
+  //  lame_set_padding_type(codec_lame_gfp,PAD_NO);
   lame_set_disable_reservoir(codec_lame_gfp,1);
   lame_init_params(codec_lame_gfp);
   codec_frame_size=144000*bitrate/samprate;
@@ -1347,6 +1351,7 @@ int Codec::DecodeSpeexFrame(unsigned char *inbuf,unsigned bytes,
 
 void Codec::InitVorbisEncoder(unsigned chans,unsigned samprate,unsigned bitrate)
 {
+#ifdef HAVE_VORBIS
   ogg_packet header;
   ogg_packet comment;
   ogg_packet codebook;
@@ -1371,19 +1376,23 @@ void Codec::InitVorbisEncoder(unsigned chans,unsigned samprate,unsigned bitrate)
   //         to get/set the actual stream value in libvorbis?
   //
   codec_sample_enc_size=CODEC_VORBIS_SAMPLE_BLOCK_SIZE;
+#endif  // HAVE_VORBIS
 }
 
 
 void Codec::FreeVorbisEncoder()
 {
+#ifdef HAVE_VORBIS
   vorbis_block_clear(&codec_vorbis_trans_block);
   vorbis_dsp_clear(&codec_vorbis_trans_dsp_state);
   vorbis_info_clear(&codec_vorbis_trans_info);
+#endif  // HAVE_VORBIS
 }
 
 
 void Codec::InitVorbisDecoder(unsigned samprate)
 {
+#ifdef HAVE_VORBIS
   //
   // Just do some basic setup here, as we can't fully initialize things
   // until we get the codebook from the far end.
@@ -1396,23 +1405,27 @@ void Codec::InitVorbisDecoder(unsigned samprate)
   //         to get/set the actual stream value in libvorbis?
   //
   codec_sample_dec_size=CODEC_VORBIS_SAMPLE_BLOCK_SIZE;
+#endif  // HAVE_VORBIS
 }
 
 
 void Codec::FreeVorbisDecoder()
 {
+#ifdef HAVE_VORBIS
   if(codec_vorbis_decoder_ready) {
     vorbis_block_clear(&codec_vorbis_recv_block);
     vorbis_dsp_clear(&codec_vorbis_recv_dsp_state);
   }
   vorbis_info_clear(&codec_vorbis_recv_info);
   codec_vorbis_decoder_ready=false;
+#endif  // HAVE_VORBIS
 }
 
 
 int Codec::EncodeVorbisFrame(const int16_t *inbuf,unsigned frame,
 			     unsigned char *outbuf)
 {
+#ifdef VORBIS
   //
   // Generate the RTP header
   //
@@ -1476,12 +1489,16 @@ int Codec::EncodeVorbisFrame(const int16_t *inbuf,unsigned frame,
   }
 
   return l+op.bytes;
+#else
+  return 0;
+#endif  // HAVE_VORBIS
 }
 
 
 int Codec::DecodeVorbisFrame(unsigned char *inbuf,unsigned bytes,
 			     uint32_t seqno,int16_t *outbuf,unsigned maxframes)
 {
+#ifdef HAVE_VORBIS
   if(!codec_vorbis_decoder_ready) {
     return 0;
   }
@@ -1524,9 +1541,13 @@ int Codec::DecodeVorbisFrame(unsigned char *inbuf,unsigned bytes,
   }
 
   return total_frames;
+#else
+  return 0;
+#endif  // HAVE_VORBIS
 }
 
 
+#ifdef HAVE_VORBIS
 QString Codec::DumpOggPacket(const QString &title,ogg_packet *op)
 {
   QString ret;
@@ -1542,6 +1563,7 @@ QString Codec::DumpOggPacket(const QString &title,ogg_packet *op)
 
   return ret;
 }
+#endif  // HAVE_VORBIS
 
 
 void Codec::Silence(int16_t *buf,unsigned frames,unsigned chans)

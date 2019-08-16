@@ -1,12 +1,10 @@
 // rtpheader.h
 //
-// (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
+// (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 // A container class for RTP header data.
 //
 // For information on these data structures, see RFCs 3550 and 3551.
-//
-//  $id:$
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -22,10 +20,10 @@
 //   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 
-
 #ifndef RTPHEADER_H
 #define RTPHEADER_H
 
+#include <stdint.h>
 #include <sys/types.h>
 #include <vector>
 #ifdef WIN32

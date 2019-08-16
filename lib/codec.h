@@ -49,7 +49,9 @@
 #include <speex/speex.h>
 #include <speex/speex_preprocess.h>
 #endif  // HAVE_SPEEX
+#ifdef HAVE_VORBIS
 #include <vorbis/vorbisenc.h>
+#endif  // HAVE_VORBIS
 #include <portaudio.h>
 #include <samplerate.h>
 
@@ -199,6 +201,7 @@ class Codec : public QObject
 			unsigned char *outbuf);
   int DecodeVorbisFrame(unsigned char *inbuf,unsigned bytes,uint32_t seqno,
 			int16_t *outbuf,unsigned maxframes);
+#ifdef VORBIS
   QString DumpOggPacket(const QString &title,ogg_packet *op);
   vorbis_info codec_vorbis_trans_info;
   vorbis_comment codec_vorbis_trans_comment;
@@ -209,7 +212,7 @@ class Codec : public QObject
   vorbis_block codec_vorbis_recv_block;
   vorbis_dsp_state codec_vorbis_recv_dsp_state;
   bool codec_vorbis_decoder_ready;
-
+#endif  // VORBIS
   //
   // Common Components
   //
