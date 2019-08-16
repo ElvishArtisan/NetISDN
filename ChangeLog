@@ -281,7 +281,7 @@
 	* Incremented the package version to 0.5.3.
 2008-09-10 Fred Gleason <fredg@paravelsystems.com>
 	* Added a 'NetConfig::ResponseUnknownCommand' and
-	'NetConfig::ResponseAuthenticationNeeded' values to 
+	'NetConfig::ResponseAuthenticationNeeded' values to
 	'NetConfig::ResponseCode' in 'lib/netconfig.h'.
 	* Added code in 'netisdn/netisdn.cpp' to verify that a username is
 	configured when launching.
@@ -314,7 +314,7 @@
 	* Added a '% CPU Load' field to the 'Connection Information'
 	dialog.
 2008-09-29 Fred Gleason <fredg@paravelsystems.com>
-	* Fixed a bug in 'netadmin/list_users.cpp' that caused multiple 
+	* Fixed a bug in 'netadmin/list_users.cpp' that caused multiple
 	newly created user entries to be highlighted.
 2008-09-29 Fred Gleason <fredg@paravelsystems.com>
 	* Modified 'netisdn/netisdn.pro' to link against release builds
@@ -426,7 +426,7 @@
 	netisdn.conf(5).
 	* Added user type icons to the List Users dialog in
 	'netadmin/list_users.cpp' and 'netadmin/list_users.h'.
-	* Added 'Active' and 'OnLine' columns to the List Users dialog in 
+	* Added 'Active' and 'OnLine' columns to the List Users dialog in
 	'netadmin/list_users.cpp' and 'netadmin/list_users.h'.
 2009-01-26 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in 'netsipd/netsipd.cpp' where a status update was
