@@ -1,0 +1,107 @@
+## netisdn.spec.in
+##
+##    The NetISDN IP Codec System
+##    Copyright (C) 2008 Fred Gleason <fredg@paravelsystems.com>
+##
+##    This program is free software; you can redistribute it and/or modify
+##    it under the terms of version 2 of the GNU General Public License as
+##    published by the Free Software Foundation;
+##
+##    This program is distributed in the hope that it will be useful,
+##    but WITHOUT ANY WARRANTY; without even the implied warranty of
+##    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##    GNU General Public License for more details.
+##
+##    You should have received a copy of the GNU General Public License
+##    along with this program; if not, write to the Free Software
+##    Foundation, Inc., 59 Temple Place, Suite 330, 
+##    Boston, MA  02111-1307  USA
+##
+
+Summary: TCP/IP Transport System for High-Quality Audio Transmission
+Name: netisdn
+Version: @VERSION@
+Release: @RPM_RELEASE@
+License: GPL
+Group: Productivity/Multimedia/Sound/Utilities
+Source: netisdn-@VERSION@.tar.gz
+BuildRoot: /var/tmp/netisdn-@VERSION@
+
+%description
+NetISDN is a system for transporting high-quality audio via TCP/IP networks.
+
+%package server
+Summary: The connection management server
+Group: Productivity/Multimedia/Other
+Requires: netisdn
+
+%description server
+This is the netsipd(8) server required for the NetISDN system.
+
+%prep
+%setup
+./configure --prefix=@LOCAL_PREFIX@
+
+%build
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/@NET_LIB_PATH@
+cp lib/.libs/libnetisdn-@VERSION@.so $RPM_BUILD_ROOT@LOCAL_PREFIX@/@NET_LIB_PATH@/
+ln -s @LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn-@VERSION@.so $RPM_BUILD_ROOT@LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn.so
+mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin
+cp netisdn/.libs/netisdn $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+cp netadmin/.libs/netadmin $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
+mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin
+cp netsipd/.libs/netsipd $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin/
+mkdir -p $RPM_BUILD_ROOT/etc/init.d
+cp rc.netisdn $RPM_BUILD_ROOT/etc/init.d/netisdn
+mkdir -p $RPM_BUILD_ROOT/opt/kde3/share/icons/hicolor/48x48/apps
+cp icons/netisdn-48x48.xpm $RPM_BUILD_ROOT/opt/kde3/share/icons/hicolor/48x48/apps/netisdn.xpm
+mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications
+cp xdg/netisdn.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/netisdn.desktop
+
+%post
+ldconfig
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root)
+%doc README 
+%doc ChangeLog 
+%doc netsipd.conf-sample
+%doc icons/netisdn-48x48.xpm
+%doc docs/rfc2327.txt
+%doc docs/rfc2616.txt
+%doc docs/rfc2617.txt
+%doc docs/rfc3261.txt
+%doc docs/rfc3548.txt
+%doc docs/rfc3550.txt
+%doc docs/rfc3551.txt
+%doc docs/rfc5215.txt
+@LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn-@VERSION@.so
+@LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn.so
+@LOCAL_PREFIX@/bin/netisdn
+/opt/kde3/share/icons/hicolor/48x48/apps/netisdn.xpm
+@LOCAL_PREFIX@/share/applications/netisdn.desktop
+
+%files server
+@LOCAL_PREFIX@/bin/netadmin
+@LOCAL_PREFIX@/sbin/netsipd
+/etc/init.d/netisdn
+
+%changelog
+* Fri Sep 26 2008 Fred Gleason <fredg@paravelsystems.com>
+-- Added RFC5215.
+* Mon Sep 08 2008 Fred Gleason <fredg@paravelsystems.com>
+-- Added netadmin(1).
+-- Added netsipd.conf-sample.
+* Fri Sep 05 2008 Fred Gleason <fredg@paravelsystems.com>
+-- Added netsipd(8).
+* Thu Aug 14 2008 Fred Gleason <fredg@paravelsystems.com>
+-- Added RFCs 2327, 2616, 2617 and 3548.
+* Tue Jun 10 2008 Fred Gleason <fredg@paravelsystems.com>
+-- Initial package creation.

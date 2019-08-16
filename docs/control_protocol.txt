@@ -1,0 +1,113 @@
+                           NetISDN Control Protocol
+
+Control is accomplished by means of messages sent over a TCP connection
+from the client to TCP port 8448.
+
+LOGIN SEQUENCE
+After connecting, the client initiates the connection by sending:
+
+      LI <username> <local-addr> <release-ver>!
+
+Server responds with:
+
+      LI <challenge>!
+
+Client responds with:
+
+      PW <password-hash>!
+
+where <password-hash> is the MD5 hash of the string "<challenge>|<password>".
+
+Server responds with either:
+
+      OK <lease-time>!
+
+where <lease-time> is number of seconds to wait before reauthenticating
+
+or:
+
+      ER <error-code>!
+
+where <error-code> is one of the following:
+      1 = Username or password is invalid.
+      2 = Account is already in use.
+      3 = Malformed command
+
+Optionally, the server may also send:
+
+      BT <bdcst-name> <mode>!
+
+Indicating that the user account is provisioned as a Broadcast Sender or
+Receiver.  <bdcst-name> is the name of the Broadcast feed, <mode> is '1' for a
+Sender or '2' for a Receiver.
+
+
+CALL SETUP SEQUENCE
+The client initiates call setup by sending:
+
+      CA <username> 
+         <src-format> <src-samp-rate> <src-chans> <src-quality> <src-proc> <src-stream-ratio>
+         <dest-format> <dest-samp-rate> <dest-chans> <dest-quality> <dest-proc> <dest-stream-ratio>!
+
+Server responds with:
+
+      ER <error-code>!
+
+where <error-code> is one of the following:
+      10 = Call proceeding
+      11 = <username> unknown
+      12 = <username> not online
+      13 = <username> busy or unavailable
+      14 = Requested format not supported by far end
+
+If call proceeds, the server then sends a media start command to each client:
+
+      ME <username> <src-port> <dest-ip-addr> <dest-port> 
+         5<src-format> 6<src-samp-rate> 7<src-chans> 8<src-quality> 9<src-proc> 10<src-stream-ratio>
+         11<dest-format> 12<dest-samp-rate> 13<dest-chans> 14<dest-quality>!
+
+where <username> is the user name of the remote call, <src-port> is the UDP 
+port to use for origination, <dest-ip-addr> is the public IP address of the 
+destination client (as known to netsipd(8)) and <dest_port> is the UDP port
+of the destination client.
+
+If the <src-format> is Vorbis, the transmitting client will also generate
+and send codec initialization data (Base64 encoded), consisting of Vorbis 
+Start, Comment and Codebook packets, as follows:
+
+      CB <start-pkt> <comment-pkt> <codebook-pkt>!
+
+Netsipd(8) should send this data unaltered to the opposite client.
+
+
+CALL TEARDOWN
+A client disconnects a call by sending:
+
+      BY!
+
+Server then sends a media stop command to each client:
+
+      MS!
+
+
+METADATA UPDATE
+Metadata is transmitted by sending:
+
+      MD <meta-tag> <value>!
+
+Where <meta-tag> is text string that identifies the metadata field, and
+<value> is the base64-encoded value.  The following meta-tags are currently
+defined:
+
+           FN - Full name of user
+           MA - E-mail address of user, in RFC882 format
+           PH - Phone number of user, in RFC3550 format
+           LC - Location of the user, as identified by netsipd(8)
+
+
+PING
+
+      PG!
+
+Issued by netsipd(8) to verify responsiveness of the client.  The client
+should simply return the command.

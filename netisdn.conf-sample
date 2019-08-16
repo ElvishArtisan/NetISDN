@@ -1,0 +1,11 @@
+; netisdn.conf
+;
+[Global]
+Interface=0.0.0.0
+
+[mySQL]
+Hostname=localhost
+Loginname=netuser
+Password=letmein
+Database=NetISDN
+Driver=QMYSQL3

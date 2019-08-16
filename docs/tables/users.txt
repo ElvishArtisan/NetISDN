@@ -1,0 +1,21 @@
+                   USERS Table Layout for NetISDN
+
+The USERS table holds data concerning each individual user configured
+on the system.  Following is the layout of a record in the USERS
+table:
+
+FIELD NAME             TYPE             REMARKS
+--------------------------------------------------------------------------
+ID                     int(11)          Primary key
+NAME                   char(64)         Unique
+FULL_NAME              char(64)
+PHONE_NUMBER           char(64)
+EMAIL                  char(255)
+LOCATION               char(255)
+PASSWORD               char(64)
+ADMIN_PRIV             enum('N','Y')
+ONLINE                 enum('N','Y')
+EXPIRATION_DATE        date
+LAST_ACCESS_DATETIME   datetime
+LAST_ACCESS_ADDR       char(16)
+CLIENT_VERSION         char(32)

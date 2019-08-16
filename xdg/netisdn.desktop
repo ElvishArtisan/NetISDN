@@ -1,0 +1,13 @@
+[Desktop Entry]
+Categories=Qt
+Encoding=UTF-8
+BinaryPattern=
+Name=NetISDN
+GenericName=Audio Transmitter/Receiver
+Exec=netisdn
+Icon=netisdn
+TerminalOptions=
+Path=
+Type=Application
+Terminal=0
+

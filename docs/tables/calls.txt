@@ -1,0 +1,24 @@
+                   CALLS Table Layout for NetISDN
+
+The CALLS table holds data concerning each call made on the system.
+Following is the layout of a record in the CALLS table:
+
+FIELD NAME             TYPE             REMARKS
+--------------------------------------------------------------------------
+ID                     int(11)          Primary key
+ORIG_UID               int(11)          From USERS.ID
+ORIG_ADDR              char(16)
+ORIG_PORT              int unsigned(10)
+DEST_UID               int(11)          From USERS.ID
+DEST_ADDR              char(16)
+DEST_PORT              int unsigned(10)
+START_DATETIME         datetime
+END_DATETIME           datetime
+FORMAT                 unsigned
+CHANNELS               unsigned
+SAMPLE_RATE            unsigned
+BIT_RATE               unsigned
+DEST_FORMAT            unsigned
+DEST_CHANNELS          unsigned
+DEST_SAMPLE_RATE       unsigned
+DEST_BIT_RATE          unsigned

@@ -1,0 +1,13 @@
+; netisdn.conf
+;
+; This is the default configuration file for NetISDN
+;
+; by Fred Gleason <fredg@paravelsystems.com>
+;
+
+[mySQL]
+Hostname=localhost
+Loginname=netuser
+Password=letmein
+Database=NetISDN
+Driver=QMYSQL3

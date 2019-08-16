@@ -1,0 +1,455 @@
+2008-05-19 Fred Gleason <fredg@paravelsystems.com>
+	* Initial package creation.
+2008-05-19 Fred Gleason <fredg@paravelsystems.com>
+	* Autoconfiscated the package.
+2008-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'BNV_HAVE_QT' macro in 'acinclude.m4'.
+	* Added a check for Qt in 'configure.in'.
+	* Added a 'netisdn/' directory.
+2008-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented full-duplex mode in 'lib/layer3_codec.cpp'.
+2008-05-20 Fred Gleason <fredg@paravelsystems.com>
+	* Split the audio callbacks in 'lib/layer3_codec.cpp' to permit
+	operation with audio devices that do not support full duplex mode.
+2008-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented the 'Layer3Codec::locked()'  signal in
+	'lib/layer3_codec.cpp'.
+	* Implemented level metering in 'netisdn/netisdn.cpp'.
+2008-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Added a Windows port.
+2008-05-21 Fred Gleason <fredg@paravelsystems.com>
+	* Removed unnecessary header includes from 'lib/layer3_codec.cpp'.
+2008-05-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'lib/layer3_codec.cpp' and 'netisdn/netisdn.cpp'
+	to ensure only appropriate audio devices are selected Input and
+	Output.
+2008-05-23 Fred Gleason <fredg@paravelsystems.com>
+	* Removed debuggin messages in 'lib/layer3_Codec.cpp'.
+2008-05-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added an InstallShield setup in 'netisdn.ism'.
+	* Added an icon in 'icons/netisdn.ico'.
+2008-05-27 Fred Gleason <fredg@paravelsystems.com>
+	* Removed 'client/Makefile'.
+2008-05-27 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/layer3_codec.cpp' that caused heap
+	corruption when utilizing single channel mode.
+2008-05-28 Fred Gleason <fredg@paravelsystems.com>
+	* Added a container class for RTP headers in 'lib/rtpheader.cpp'.
+2008-05-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added the text of RFC3550 in 'docs/rfc3550.txt'.
+	* Added the text of RFC3551 in 'docs/rfc3551.txt'.
+2008-05-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'RTPSenderReport' class in 'lib/rtpsenderreport.cpp'.
+	* Added a 'RTPReceptionReport' class in 'lib/rtpreceptionreport.cpp'.
+	* Added a 'RTPReceptionBlock' class in 'lib/rtpreceptionblock.cpp'.
+2008-05-30 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'RTPSourceDescription' class in
+	'lib/rtpsourcedescription.cpp'.
+2008-06-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'RTPBye' class in 'lib/rtpbye.cpp'.
+2008-06-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed various bugs in low-level RTP classes.
+2008-06-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added a statistics dialog in 'netisdn/stats_dialog.
+2008-06-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added components to 'lib/lib.pro' and 'netisdn/netisdn.pro' to
+	make the build work on Windows.
+2008-06-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'netisdn/audiosettingsdialog.cpp' to prevent list
+	MME devices.
+	* Fixed a bug in 'lib/layer3_codec.cpp' that was causing the
+	default audio devices to fail to be initialized properly.
+2008-06-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'Profile' class in 'lib/profile.cpp'.
+	* Added a 'ProfileSection' class in 'lib/profileline.cpp'.
+	* Added a 'ProfileLine' class in 'lib/profileline.cpp'.
+2008-06-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/rtpsourcedescription.cpp' that affected
+	packets containing multiple SDES chunks.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented 'Listen' mode.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/layer3_codec.cpp' that was causing the
+	outbound Sender Report to fail to be generated when connected.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added Transmit and Receive status lamps in
+	'netisdn/netisdn.cpp'.
+	* Fixed a bugs in 'lib/layer3_codec.cpp' that was preventing
+	proper autodetection of connection parameters in Listening mode.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added code to use the registry for storing settings under
+	Windows in 'netisdn/netisdn.cpp'.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Redesigned 'netisdn/netisdn.cpp' so that a remote change of
+	audio parameters in Listen mode does not change the default audio
+	settings.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed package to 'netisdn'.
+	* Updated 'netisdn.ism'.
+	* Incremented the package version to 0.1.0.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added an autorun skeleton in 'icons/autorun.inf.in'.
+2008-06-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added an icon in 'icons/netisdn-48x48.xpm'.
+	* Added a desktop profile in 'xdg/netisdn.desktop'.
+	* Added an RPM spec in 'netisdn.spec.in'.
+2008-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a status bar in 'netisdn/netisdn.cpp'.
+	* Added DNS support in 'netisdn/netisdn.cpp'.
+2008-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Optimized 'lib/layer3_codec.cpp' to minimize buffering latency
+	when answering connections in Listen mode.
+2008-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Layer3Codec::timeout()' and 'Layer3Codec::setTimeout()'
+	methods in 'lib/layer3_codec.cpp'.
+2008-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'HistoryBox' widget in 'lib/historybox.cpp'.
+	* Added a connection history list in 'netisdn/netisdn.cpp'.
+2008-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'lib/historybox.cpp' and 'lib/historybox.h' to
+	'lib/lib.pro'.
+2008-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'netisdn/netisdn.cpp' that was failing to save
+	the Input and Output device settings.
+	* Added logic in 'netisdn/netisdn.cpp' to display the SDES 'Name'
+	value on the title bar if available.
+2008-06-11 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.2.0.
+2008-06-12 Fred Gleason <fredg@paravelsystems.com>
+	* Removed invalid bitrates and sample rates from
+	'netisdn/audiosettings_dialog.cpp'.
+2008-06-12 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.2.1.
+2008-06-12 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/layer3_codec.cpp' that was failing to handle
+	initialization and rollover of the RTP sequence number correctly.
+	* Fixed a bug in 'lib/layer3_codec.cpp' that was causing incorrect
+	'Received Packet' counts to be displayed.
+2008-06-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'libmysql.dll' to the Windows setup in /netisdn.ism'.
+2008-06-18 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed the 'Layer3Codec' class in 'lib/layer3_codec.[h,cpp]' to
+	'Codec' in 'lib/codec.[h,cpp]'.
+	* Added support for saving the 'Format' settings parameter in
+	'netisdn/netisdn.cpp'.
+	* Implemented support for Speex encoding.
+2008-06-18 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/rtpsourcedescription.cpp' that broke SDES
+	updates.
+2008-06-18 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/lib.pro', 'netisdn/netisdn.pro' and
+	'lib/codec.cpp' that broke the build under Windows.
+	* Added 'libspeex.dll' and 'libspeexdsp.dll' to 'netisdn.ism'.
+2008-06-18 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.3.0.
+2008-06-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'BitBucket' class in 'lib/bitbucket.cpp'.
+	* Optimized code in 'lib/codec.cpp' to better handle lost packets.
+	* Added 'AudioSettings::enableProcessor()' and
+	'AudioSettings::setEnableProcessor()' methods in
+	'lib/audiosettings.cpp'.
+	* Added the ability to specify the Quality value for Speex
+	connections in 'lib/codec.cpp' and
+	'netisdn/audiosettings_dialog.cpp'.
+	* Added an 'Enable Voice Processor' checkbox in the Settings dialog
+	in 'netisdn/audiosettings_dialog.cpp'.
+2008-06-20 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'libspeexdsp' to the list of linked libraries in
+	'netisdn/netisdn.pro'.
+2008-06-20 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.3.1.
+2008-06-23 Fred Gleason <fredg@paravelsystems.com>
+	* Stubbed out a netsipd(8) daemon in 'netsipd/'.
+2008-07-23 Fred Gleason <fredg@paravelsystems.com>
+	* Added a lock-free ringbuffer class in 'lib/ringbuffer.cpp'.
+	* Implemented a phase-locked-loop to hold reception latency
+	constant in 'lib/codec.cpp'.
+	* Added a 'PLL Offset' field in the 'Connection Information'
+	dialog in 'netisdn/stats_dialog.cpp'.
+2008-07-25 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'netsipd/Makefile.am' that caused the build to
+	break.
+2008-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/codec.cpp' that was applying mono voice
+	processing in stereo mode.
+	* Added code in 'netisdn/audiosettings_dialog.cpp' to disable
+	voice processor option when channels are set to be more than one.
+2008-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/codec.cpp' that broke L3 stereo encoding.
+2008-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in the 'MeterAverage::preset()' method in
+	'lib/meter_average.cpp'.
+	* Added a check for corrupt RTP headers in 'lib/rtpheader.cpp'.
+	* Cleaned up PLL initialization in 'lib/codec.cpp'.
+2008-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added libsamplerate dependencies in 'lib/lib.pro' and
+	'netisdn/netisdn.pro'.
+2008-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'libsamplerate.dll' to 'netisdn.ism'.
+2008-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'netisdn/audiosettings_dialog.cpp' to hide ASIO
+	devices.
+2008-08-05 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.4.0.
+2008-08-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'docs/tables' directory.
+	* Added a layout for the 'USERS' table in 'docs/tables/users.txt'.
+	* Added a 'Login' dialog in 'lib/login.cpp'.
+	* Added a 'NetAdmin' utility in 'netadmin/'.
+2008-11-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added RFC 3261 in 'docs/rfc3261.txt'.
+2008-08-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'SipMessage' class in 'lib/sipmessage.cpp'.
+	* Added a 'SipVia' class in 'lib/sipvia.cpp'.
+2008-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'docs/rfc2327.txt', 'docs/rfc2616.txt' and
+	'docs/rfc2617.txt'.
+2008-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'docs/rfc3548.txt'.
+2008-08-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'NetStringToBase64()' and 'NetBase64ToString()' functions
+	in 'lib'netconf.cpp'.
+2008-08-15 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'DatePicker' widget in 'lib/datepicker.cpp'.
+	* Added a 'DateDialog' dialog in 'lib/datedialog.cpp'.
+	* Added an 'Expires' control in 'netadmin/edit_user.cpp'.
+	* Fixed bugs in 'netadmin/list_users.cpp' that broke attribute
+	updating after changing user attributes.
+	* Added a 'USERS.ONLINE' field to the database.
+	* Incremented the database version to 2.
+	* Refactored 'SIPMessage' to process only header data.
+2008-08-15 Fred Gleason <fredg@paravelsystems.com>
+	* Rearranged the layout of the NEtISDN UI.
+2008-08-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'HTTPEvent' class in 'lib/httpevent.cpp'.
+	* Added an 'HTTPParser' class in 'lib/httpparser.cpp'.
+2008-09-02 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'ConnectControl' class in 'lib/connectcontrol.cpp'.
+2008-09-02 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the 'HTTPEvent', 'HTTPParser', 'SIPMessage', 'SIPVia',
+	'SDPMessage' and 'SDPMediaFormat' classes.
+2008-09-05 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a server command link between netisdn(1) and
+	netsipd(8).
+2008-09-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'CALLS' table to the database.
+	* Incremented the database version to 3.
+2008-09-05 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'server' subpackage in 'netisdn.spec'in'.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/lib.pro' that broke the build under Windows.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'USERS.CLIENT_VERSION' field to the database.
+	* Incremented the database version to 4.
+	* Completed implementation of MD5 hashed logins.
+	* Implemented watchdog code in 'lib/controlconnect.cpp'.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'helpers/win32_frag.txt' that broke versioning
+	under Windows.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Set 'NETSIP_HOSTNAME' to 'directory.netisdn.com'.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.5.0.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added netadmin(1) and 'netisdn.conf-sample' to
+	'netisdn.spec.in'.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Changed the protocol for the 'ME' command to include source and
+	destination ports.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'CALLS.ORIG_PORT' and 'CALLS.DEST_PORT' fields to the
+	database.
+	* Incremented the database version to 5.
+2008-09-08 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.5.1.
+2008-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added local address parameter to the 'LI' control message.
+2008-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented logic to bypass firewall code when both clients are
+	behind the same one.
+2008-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.5.2.
+2008-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'List Calls' dialog in 'netadmin/list_calls.cpp'.
+2008-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/controlconnect.cpp' that was failing to emit
+	response codes upon a login attempt.
+	* Added red meter segments in 'netisdn/netisdn.cpp'.
+	* Fixed a bug in 'lib/codec.cpp' that caused the transmit cname to
+	not be sent under Windows.
+2008-09-09 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.5.3.
+2008-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'NetConfig::ResponseUnknownCommand' and
+	'NetConfig::ResponseAuthenticationNeeded' values to 
+	'NetConfig::ResponseCode' in 'lib/netconfig.h'.
+	* Added code in 'netisdn/netisdn.cpp' to verify that a username is
+	configured when launching.
+2008-09-10 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.5.4.
+2008-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'libeay32.dll' to the Windows setup in 'netisdn.ism'.
+2008-09-12 Fred Gleason <fredg@paravelsystems.com>
+	* Stubbed out Vorbis support in 'lib/codec.cpp' and
+	'netisdn/audiosettings_dialog.cpp'.
+2008-09-25 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented Vorbis support in 'lib/codec.cpp'.
+	* Added a data loopback mode.
+2008-09-25 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a conditional compile for MPEG Layer 3 support.
+2008-09-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added libvorbis, libvorbisenc and libogg to 'lib/lib.pro' and
+	'netisdn/netisdn.pro'.
+2008-09-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'docs/rfc5215.txt'.
+2008-09-29 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented the Vorbis RTP payload header as per RFC5215 in
+	'codec/codec.cpp'.
+2008-09-29 Fred Gleason <fredg@paravelsystems.com>
+	* Set 'NETSIP_HOSTNAME to 'gateway.netisdn.com.' in
+	'lib/netconfig.h'.
+2008-09-29 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.6.0.
+2008-09-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added a '% CPU Load' field to the 'Connection Information'
+	dialog.
+2008-09-29 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'netadmin/list_users.cpp' that caused multiple 
+	newly created user entries to be highlighted.
+2008-09-29 Fred Gleason <fredg@paravelsystems.com>
+	* Modified 'netisdn/netisdn.pro' to link against release builds
+	of libogg, libvorbisenc and libvorbis.
+2008-09-29 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.6.1.
+2008-10-03 Fred Gleason <fredg@paravelsystems.com>
+	* Removed the 'Codec::StateListening' value from
+	'Codec::ConnectionState' in 'lib/codec.h'.
+	* Added GeoIP lookup support in 'netsipd/netsipd.cpp'.
+2008-10-03 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'OneShot' class in 'lib/oneshot.cpp'.
+	* Added a 'Codec::sendGpio()' method in 'lib/codec.cpp'.
+	* Added a 'Codec::gpioChanged()' signal in 'lib/codec.h'.
+	* Implemented a 'GPIO' SDES extension in 'lib/codec.cpp'.
+	* Added 'AudioSettings::rmlPort()' and
+	'AudioSettings::setRmlPort()' methods in 'lib/audiosettings.cpp'.
+	* Added an 'RML Port' control to the 'Settings' dialog in
+	'netisdn/audiosettings_dialog.cpp'.
+	* Added GPIO status indicators to the Connection Information
+	dialog in 'netisdn/stats_dialog.cpp'.
+	* Added an 'Advanced Settings' dialog in
+	'netisdn/advanced_dialog.cpp'.
+2008-10-09 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented a packet loss simulator in 'netfilter/'.
+2008-10-09 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Codec::streamRatio()' and 'Codec::setStreamRatio()'
+	methods in 'lib/codec.cpp'.
+	* Added an 'Overstream Mode' control to the Advanced Settings
+	dialog in 'netisdn/advanced_dialog.cpp'.
+2008-10-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'CALLS.DEST_FORMAT', 'CALLS.DEST_SAMPLE_RATE',
+	'CALLS.DEST_CHANNELS' and 'CALLS.DEST_BIT_RATE' to the database.
+	* Incremented the database version to 6.
+	* Implemented asymmetric algorithms.
+2008-10-14 Fred Gleason <fredg@paravelsystems.com>
+	* Added the capability to specify Voice Processor and
+	Hyperstreaming for both directions of a connection.
+	* Removed the 'Overstreaming' control from the Advanced Settings
+	dialog in 'netisdn/advanced_dialog.cpp'.
+2008-10-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/codec_stats.h' that caused the build to
+	break under Windows.
+	* Fixed bugs in 'netisdn/netisdn.cpp' that caused the build to
+	break under Windows.
+	* Fixed a bug in 'netisdn/netisdn.pro' that caused the build to
+	break under Windows.
+2008-10-14 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.7.0.
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented heartbeat and automatic reconnect functionality for
+	the MySQL connection in netsipd(8).
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Renamed 'lib/netdb.[cpp,h]' to 'lib/sqldb.[cpp,h]'.
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'lib/controlconnect.cpp' that broke automatic
+	control reconnection.
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.7.1.
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/netconf.cpp', 'lib/lib.pro' and
+	'lib/sqldb.cpp' that broke the build under Windows.
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.7.2.
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Changed NETSIP_HOSTNAME back to 'directory.netisdn.com' in
+	'lib/netconfig.h'.
+2008-11-03 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.7.3.
+2008-11-06 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'AudioSettings::inputGain()' and
+	'AudioSettings::setInputGain()' methods in
+	'lib/audiosettings.cpp'.
+	* Added an 'Input Gain' control to the Advanced Settings dialog in
+	'netisdn/advanced_dialog.cpp'.
+	* Implemented variable input gain in 'lib/codec.cpp'.
+2008-11-06 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.7.4.
+2008-11-07 Fred Gleason <fredg@paravelsystems.com>
+	* Added a version string to the title bar of the Connection
+	Information dialog in 'netisdn/stats_dialog.cpp'.
+2008-11-11 Fred Gleason <fredg@paravelsystems.com>
+	* Added 'Codec::receiverBuffers()' and
+	'Codec::setReceiveBuffers()' methods in 'lib/codec.cpp'
+	* Added 'AudioSettings::useRealtime()' and
+	'AudioSettings::setUseRealtime()' methods in
+	'lib/audiosettings.cpp'.
+	* Added 'Receive Buffer' and 'Use Realtime' control to the
+	Advanced Settings dialog in 'netisdn/advanced_dialog.cpp'.
+2008-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/codec.h' and 'lib/codec.cpp' that broke the
+	build when built without Speex support.
+2008-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Added a 'make slack' target.
+2008-11-13 Fred Gleason <fredg@paravelsystems.com>
+	* Adjusted the widget layout in 'netisdn/stats_dialog.cpp'  and
+	'netisdn/audiosettings_dialog.cpp' to make control labels fit
+	under SLAX.
+2008-11-14 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/codec.cpp' and 'netisdn/netisdn.cpp' that
+	broke the build under Windows.
+	* Removed 32 kbps from the bitrate menu for Vorbis.
+2008-11-14 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.7.5.
+2008-12-04 Fred Gleason <fredg@paravelsystems.com>
+	* Corrected icon location in 'make_slack.in'.
+2009-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Added an 'Interface=' parameter to the [Global] section of
+	netisdn.conf(5).
+	* Added user type icons to the List Users dialog in
+	'netadmin/list_users.cpp' and 'netadmin/list_users.h'.
+	* Added 'Active' and 'OnLine' columns to the List Users dialog in 
+	'netadmin/list_users.cpp' and 'netadmin/list_users.h'.
+2009-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed a bug in 'netsipd/netsipd.cpp' where a status update was
+	not being sent upon call termination.
+2009-01-26 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented Online Users status reporting for the List Users
+	dialog in 'netadmin/list_users.cpp' and 'netadmin/list_users.h'.
+2009-01-29 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented Active Calls status report for the List Calls dialog
+	in 'netadmin/list_calls.cpp' and 'netadmin/list_calls.h'.
+2009-01-29 Fred Gleason <fredg@paravelsystems.com>
+	* Implemented the 'Ping' ['PG'] control message in
+	'lib/controlconnect.cpp', 'netsipd/netsipd.cpp' and
+	'netsipd/netsipd.h'.
+2009-01-29 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.8.0.
+2009-01-29 Fred Gleason <fredg@paravelsystems.com>
+	* Added code in 'netsipd/netsipd.cpp' to bind the status update
+	socket to the interface indicated by the 'Interface=' parameter in
+	the [Global] section of netisdn.conf(5).
+2009-01-29 Fred Gleason <fredg@paravelsystems.com>
+	* Incremented the package version to 0.8.1.
+2009-12-23 Fred Gleason <fredg@paravelsystems.com>
+	* Fixed bugs in 'lib/cmd_switch.cpp', 'lib/rtpreceptionreport.h',
+	'lib/rtpcontrolheader.h' and 'lib/rtpheader.cpp' that broke the
+	build under OpenSuSE 11.1.

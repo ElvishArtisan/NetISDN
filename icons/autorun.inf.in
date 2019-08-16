@@ -1,0 +1,2 @@
+[autorun]
+open=netisdn-@VERSION@-@RPM_RELEASE@.exe
