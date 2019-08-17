@@ -116,7 +116,7 @@ AC_CONFIG_MACRO_DIR([m4])
 #
 # Check for Vorbis
 #
-AC_CHECK_HEADER(vorbis/vorbisfile.h,[VORBIS_FOUND=yes],[VORBIS_FOUND=no])
+AC_CHECK_HEADER(vorbis/vorbisfile.h,[VORBIS_FOUND=yes],[])
 if test $VORBIS_FOUND = yes ; then
   if test -z $VORBIS_DISABLED ; then
     AC_DEFINE(HAVE_VORBIS,yes)

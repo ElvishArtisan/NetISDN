@@ -404,6 +404,9 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
 	str="Speex";
 	lib_trans_samprate_box->insertItem("32000");
 	break;
+
+      case AudioSettings::NoFormat:
+	break;
   }
   for(int i=0;i<lib_trans_format_box->count();i++) {
     if(lib_trans_format_box->text(i)==str) {
@@ -415,8 +418,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   lib_trans_channels_box->
     setCurrentItem(lib_lib->channels(AudioSettings::Transmit,false)-1);
   for(int i=0;i<lib_trans_samprate_box->count();i++) {
-    if(lib_trans_samprate_box->text(i).toInt()==
-       (int)lib_lib->sampleRate(),false) {
+    if(lib_trans_samprate_box->text(i).toInt()==(int)lib_lib->sampleRate()) {
       lib_trans_samprate_box->setCurrentItem(i);
     }
   }
@@ -1043,6 +1045,9 @@ void AudioSettingsDialog::CheckSettings(AudioSettings::Direction dir,
 	    }
 	    break;
 	}
+	break;
+
+      case AudioSettings::NoFormat:
 	break;
   }
   if(samprate_box!=NULL) {

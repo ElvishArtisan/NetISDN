@@ -457,3 +457,5 @@
 	* Modernized the Autotool buildchain.
 2019-08-16 Fred Gleason <fredg@paravelsystems.com>
 	* Added conditionals to allow building without Vorbis support.
+2019-08-17 Fred Gleason <fredg@paravelsystems.com>
+	* Cleaned up warnings.

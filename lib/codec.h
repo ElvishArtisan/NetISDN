@@ -201,7 +201,7 @@ class Codec : public QObject
 			unsigned char *outbuf);
   int DecodeVorbisFrame(unsigned char *inbuf,unsigned bytes,uint32_t seqno,
 			int16_t *outbuf,unsigned maxframes);
-#ifdef VORBIS
+#ifdef HAVE_VORBIS
   QString DumpOggPacket(const QString &title,ogg_packet *op);
   vorbis_info codec_vorbis_trans_info;
   vorbis_comment codec_vorbis_trans_comment;
@@ -212,7 +212,7 @@ class Codec : public QObject
   vorbis_block codec_vorbis_recv_block;
   vorbis_dsp_state codec_vorbis_recv_dsp_state;
   bool codec_vorbis_decoder_ready;
-#endif  // VORBIS
+#endif  // HAVE_VORBIS
   //
   // Common Components
   //

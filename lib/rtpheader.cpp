@@ -328,7 +328,7 @@ int RTPHeader::readBlock(uint32_t *data,unsigned len)
   else {
     ret=3+csrcCount();
   }
-  if(ret>len) {
+  if(ret>(int)len) {
     fprintf(stderr,"RTPHeader: corrupt RTP header\n");
     return 0;
   }

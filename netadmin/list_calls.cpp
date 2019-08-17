@@ -238,7 +238,6 @@ void ListCalls::RefreshList()
   QString sql;
   QSqlQuery *q;
   NetListViewItem *item;
-  QDate today=QDate::currentDate();
 
   list_view->clear();
   sql="select CALLS.ID,USERS.NAME,CALLS.DEST_UID,CALLS.START_DATETIME,\

@@ -2,9 +2,7 @@
 //
 // Process Command-Line Switches
 //
-//   (C) Copyright 2002-2008 Fred Gleason <fredg@paravelsystems.com>
-//
-//      $Id: cmd_switch.cpp,v 1.2 2009/12/23 15:44:19 pcvs Exp $
+//   (C) Copyright 2002-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -29,7 +27,8 @@
 #include <cmd_switch.h>
 #include <qmessagebox.h>
 
-CmdSwitch::CmdSwitch(int argc,char *argv[],char *modname,char *usage)
+CmdSwitch::CmdSwitch(int argc,char *argv[],const char *modname,
+		     const char *usage)
 {
   unsigned l=0;
   bool handled=false;

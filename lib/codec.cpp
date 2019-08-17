@@ -661,7 +661,7 @@ void Codec::sendGpio(unsigned line,bool state,unsigned interval)
     if((codec_trans_gpio&mask)==0) {
       codec_trans_gpio|=mask;
       if(interval>0) {
-	codec_trans_gpio_oneshot->start((void *)line,interval);
+	codec_trans_gpio_oneshot->start(line,interval);
       }
     }
   }
@@ -1333,6 +1333,8 @@ int Codec::EncodeSpeexFrame(const int16_t *inbuf,unsigned frames,
   codec_transmit_packets++;
   codec_transmit_octets+=(bytes);
   return bytes;
+#else
+  return 0;
 #endif  // HAVE_SPEEX
 }
 
@@ -1345,6 +1347,8 @@ int Codec::DecodeSpeexFrame(unsigned char *inbuf,unsigned bytes,
   speex_decode_int(codec_speex_dec_state,&codec_speex_dec_bits,
 		   (spx_int16_t *)outbuf);
   return codec_sample_dec_size;
+#else
+  return 0;
 #endif  // HAVE_SPEEX
 }
 
@@ -1525,12 +1529,12 @@ int Codec::DecodeVorbisFrame(unsigned char *inbuf,unsigned bytes,
 			     &codec_vorbis_recv_block);
   }
   while((frames=vorbis_synthesis_pcmout(&codec_vorbis_recv_dsp_state,&pcm))>0) {
-    if((frames+total_frames)>maxframes) {
+    if((frames+total_frames)>(int)maxframes) {
       fprintf(stderr,"Codec::DecodeVorbisFrames: exceeded maxframes\n");
       return total_frames;
     }
     for(int i=0;i<frames;i++) {
-      for(int j=0;j<codec_settings.channels(AudioSettings::Receive);j++) {
+      for(unsigned j=0;j<codec_settings.channels(AudioSettings::Receive);j++) {
 	outbuf[codec_settings.channels(AudioSettings::Receive)*
 	       (total_frames+i)+j]=(int16_t)(32768.0*pcm[j][i]);
       }

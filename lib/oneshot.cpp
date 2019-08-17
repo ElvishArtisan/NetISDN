@@ -2,9 +2,7 @@
 //
 // A class for providing one-shot single use timers.
 //
-//   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
-//
-//      $Id: oneshot.cpp,v 1.1 2008/10/03 23:43:46 cvs Exp $
+//   (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License version 2 as
@@ -40,7 +38,7 @@ OneShot::OneShot(QObject *parent,const char *name)
 }
 
 
-void OneShot::start(void *data,int msecs)
+void OneShot::start(unsigned data,int msecs)
 {
   shot_pointers[shot_count]=data;
   shot_timers[shot_count]=new QTimer(this);
