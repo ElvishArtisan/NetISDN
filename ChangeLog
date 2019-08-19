@@ -459,3 +459,5 @@
 	* Added conditionals to allow building without Vorbis support.
 2019-08-17 Fred Gleason <fredg@paravelsystems.com>
 	* Cleaned up warnings.
+2019-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Made the GeoIP depedency conditional.

@@ -20,7 +20,7 @@
 ##
 ## Use automake to process this into a Makefile.in
 
-AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@ -I$(top_srcdir)/lib
+AM_CPPFLAGS = -Wall -DPREFIX=\"$(prefix)\" -DQTDIR=\"@QT_DIR@\" @QT_CXXFLAGS@ -I$(top_srcdir)/lib @GEOIP_CFLAGS@
 LIBS = @QT_LIBS@ -L$(top_srcdir)/lib
 MOC = @QT_MOC@
 
@@ -36,7 +36,14 @@ dist_netsipd_SOURCES = netsipd.cpp netsipd.h\
 
 nodist_netsipd_SOURCES = moc_netsipd.cpp moc_serversocket.cpp
 
-netsipd_LDADD = -lqui @MPEG_L3_LIBS@ @LIBSPEEX@ @LIBVORBIS@ -lportaudio -lsamplerate -lssl -lGeoIP -lnetisdn
+netsipd_LDADD = -lqui @MPEG_L3_LIBS@\
+                      @LIBSPEEX@\
+                      @LIBVORBIS@\
+                      @GEOIP_LIBS@\
+                      -lportaudio\
+                      -lsamplerate\
+                      -lssl\
+                      -lnetisdn
 
 EXTRA_DIST = netsipd.pro
 

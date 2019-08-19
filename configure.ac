@@ -99,8 +99,13 @@ AC_CHECK_HEADER(portaudio.h,[],
 #
 # Check for GeoIP (Mandatory)
 #
-AC_CHECK_HEADER(GeoIPCity.h,[],
-	[AC_MSG_ERROR([*** GeoIPCity not found ***])])
+PKG_CHECK_MODULES(GEOIP,geoip,[GEOIP_FOUND=yes],[DUMMY=whatever])
+if test $GEOIP_FOUND = yes ; then
+  if test -z $GEOIP_DISABLED ; then
+    AC_DEFINE(HAVE_GEOIP,yes)
+    USING_GEOIP=yes
+  fi
+fi
 
 #
 # Check for NetFilter (Needed for packet loss simulator)
@@ -235,6 +240,11 @@ else
 AC_MSG_NOTICE("|                                    Vorbis ... Yes   |")
 fi
 AC_MSG_NOTICE("|                                                     |")
+if test $GEOIP_FOUND ; then
+AC_MSG_NOTICE("|                    GeoIP Database Support ... Yes   |")
+else
+AC_MSG_NOTICE("|                    GeoIP Database Support ... No    |")
+fi
 if test $NETFILTER_FOUND ; then
 AC_MSG_NOTICE("|   Build packet loss simulator (netfilter) ... Yes   |")
 else

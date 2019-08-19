@@ -2,7 +2,7 @@
 //
 // SIP server for NetISDN.
 //
-//   (C) Copyright 2008 Fred Gleason <fredg@paravelsystems.com>
+//   (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as
@@ -267,8 +267,10 @@ void MainObject::Password(int fd,QStringList *cmd)
 {
   QString sql;
   NetSqlQuery *q;
-  GeoIPRecord *georec;
   QString location=tr("Private/Unknown");
+#ifdef HAVE_GEOIP
+  GeoIPRecord *georec;
+#endif  // HAVE_GEOIP
 
   if(cmd->size()!=2) {
     SendCommand(fd,QString().sprintf("ER %u!",
@@ -298,11 +300,13 @@ void MainObject::Password(int fd,QStringList *cmd)
   //
   // Lookup GeoIP Data
   //
+#ifdef HAVE_GEOIP
   if((georec=GeoIP_record_by_addr(sip_geoip,sip_connections[fd]->socket()->
 				  peerAddress().toString()))!=NULL) {
     location=QString(georec->city)+", "+QString(georec->region)+", "+
       QString(georec->country_code);
   }
+#endif  // HAVE_GEOIP
 
   sql=QString().sprintf("update USERS set LAST_ACCESS_DATETIME=now(),\
                          LAST_ACCESS_ADDR=\"%s\",ONLINE=\"Y\",\
@@ -772,7 +776,8 @@ void MainObject::Init(bool initial_startup)
   //
   // GeoIP Database
   //
-  QString geoip_path=QString(NETSIP_GEOIP_DATADIR)+QString("/GeoLiteCity.dat");
+#ifdef HAVE_GEOIP
+  QString geoip_path=QString(NETSIP_GEOIP_DATADIR)+QString("/GeoCity.dat");
   if((sip_geoip=GeoIP_open(geoip_path,GEOIP_STANDARD|GEOIP_CHECK_CACHE))==
      NULL) {
     syslog(LOG_DAEMON|LOG_CRIT,"unable to open geoip database, exiting");
@@ -781,6 +786,7 @@ void MainObject::Init(bool initial_startup)
     }
     exit(256);
   }
+#endif  // HAVE_GEOIP
     
   //
   // Start the Database Connection
@@ -788,7 +794,12 @@ void MainObject::Init(bool initial_startup)
   QString err;
   QSqlDatabase *db = NetInitDb (&err);
   if(!db) {
-    exit(0);
+    syslog(LOG_DAEMON|LOG_ERR,"unable to connect to database [%s]\n",
+	   (const char *)err);
+    if(initial_startup||sip_debug) {
+      fprintf(stderr,"unable to connect to database [%s]\n",(const char *)err);
+    }
+    exit(1);
   }
 
   //
@@ -816,10 +827,10 @@ void MainObject::Init(bool initial_startup)
   sip_server=new ServerSocket(NETSIP_TCP_PORT,0,this);
   if(!sip_server->ok()) {
     syslog(LOG_DAEMON|LOG_CRIT,"unable to bind server socket, exiting");
-    exit(256);
     if(initial_startup||sip_debug) {
       fprintf(stderr,"netsipd: unable to bind server socket\n");
     }
+    exit(256);
   }
   connect(sip_server,SIGNAL(connection(int)),this,SLOT(newConnection(int)));
   sip_zombie_timer=new QTimer(this,"sip_zombie_timer");
@@ -888,8 +899,10 @@ void MainObject::Release()
   //
   // Shutdown GeoIP
   //
+#ifdef HAVE_GEOIP
   GeoIP_delete(sip_geoip);
   sip_geoip=NULL;
+#endif  // HAVE_GEOIP
 
   //
   // Free Configuration

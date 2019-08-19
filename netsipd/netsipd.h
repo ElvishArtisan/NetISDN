@@ -28,7 +28,9 @@
 #include <netinet/ip.h>
 #include <netinet/in.h>
 
+#ifdef HAVE_GEOIP
 #include <GeoIPCity.h>
+#endif  // HAVE_GEOIP
 
 #include <qobject.h>
 #include <qserversocket.h>
@@ -87,11 +89,13 @@ class MainObject : public QObject
   NetConfig *sip_config;
   QSqlDatabase *sip_database;
   ServerSocket *sip_server;
-  GeoIP *sip_geoip;
   QTimer *sip_heartbeat_timer;
   int sip_status_socket;
   sockaddr_in sip_status_sockaddr;
   QTimer *sip_ping_timer;
+#ifdef HAVE_GEOIP
+  GeoIP *sip_geoip;
+#endif  // HAVE_GEOIP
 };
 
 
