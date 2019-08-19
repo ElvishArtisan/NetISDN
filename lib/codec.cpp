@@ -1741,18 +1741,16 @@ bool Codec::InitAudioInterface()
   out_params.device=codec_output_pdev;
   out_params.channelCount=codec_settings.channels(AudioSettings::Receive);
   out_params.sampleFormat=paInt16;
+  out_params.suggestedLatency=
+    Pa_GetDeviceInfo(codec_output_pdev)->defaultLowOutputLatency;
   if((perr=Pa_OpenStream(&codec_output_pstream,NULL,&out_params,
 			 codec_settings.sampleRate(),codec_sample_dec_size,
 			 paNoFlag,AudioOutputCallback,this))!=
      paNoError) {
-    printf("Pa Error: %s\n",Pa_GetErrorText(perr));
-    Pa_CloseStream(codec_input_pstream);
     return false;
   }
   if((perr=Pa_StartStream(codec_output_pstream))!=paNoError) {
-    printf("Pa Error: %s\n",Pa_GetErrorText(perr));
     Pa_CloseStream(codec_output_pstream);
-    Pa_CloseStream(codec_input_pstream);
     return false;
   }
 
@@ -1763,16 +1761,18 @@ bool Codec::InitAudioInterface()
   in_params.device=codec_input_pdev;
   in_params.channelCount=codec_settings.channels(AudioSettings::Transmit);
   in_params.sampleFormat=paInt16;
+  in_params.suggestedLatency=
+    Pa_GetDeviceInfo(codec_input_pdev)->defaultLowInputLatency;
   if((perr=Pa_OpenStream(&codec_input_pstream,&in_params,NULL,
 			 codec_settings.sampleRate(),codec_sample_enc_size,
 			 paNoFlag,AudioInputCallback,this))!=
      paNoError) {
-    printf("Pa Error: %s\n",Pa_GetErrorText(perr));
+    Pa_CloseStream(codec_output_pstream);
     return false;
   }
   if((perr=Pa_StartStream(codec_input_pstream))!=paNoError) {
-    printf("Pa Error: %s\n",Pa_GetErrorText(perr));
     Pa_CloseStream(codec_input_pstream);
+    Pa_CloseStream(codec_output_pstream);
     return false;
   }
 

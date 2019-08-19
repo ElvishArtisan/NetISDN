@@ -470,3 +470,6 @@
 2019-08-19 Fred Gleason <fredg@paravelsystems.com>
 	* Removed instance labels from Qt classes in
 	'netisdn/audiosettings_dialog.cpp'.
+2019-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Added code to supply suggested latency values when initializing
+	Port Audio streams in netisdn(1).
