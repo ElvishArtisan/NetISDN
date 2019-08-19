@@ -401,8 +401,8 @@ Codec::Codec(unsigned id,QObject *parent,const char *name)
   // OneShots
   //
   codec_trans_gpio_oneshot=new OneShot(this);
-  connect(codec_trans_gpio_oneshot,SIGNAL(timeout(void *)),
-	  this,SLOT(transOneshotData(void *)));
+  connect(codec_trans_gpio_oneshot,SIGNAL(timeout(unsigned)),
+  	  this,SLOT(transOneshotData(unsigned)));
 
   //
   // Timers
@@ -909,9 +909,9 @@ void Codec::timeoutData()
 }
 
 
-void Codec::transOneshotData(void *data)
+void Codec::transOneshotData(unsigned data)
 {
-  codec_trans_gpio&=~(1<<(unsigned long)data);
+  codec_trans_gpio&=~(1<<data);
 }
 
 

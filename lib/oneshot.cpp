@@ -44,7 +44,7 @@ void OneShot::start(unsigned data,int msecs)
   shot_timers[shot_count]=new QTimer(this);
   shot_mapper->setMapping(shot_timers[shot_count],shot_count);
   connect(shot_timers[shot_count],SIGNAL(timeout()),
-	  shot_mapper,SLOT(map()));
+  	  shot_mapper,SLOT(map()));
   shot_timers[shot_count]->start(msecs,true);
   shot_count++;
 }

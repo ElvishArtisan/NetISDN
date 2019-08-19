@@ -139,7 +139,7 @@ class Codec : public QObject
   void rtcpTransmitData();
   void rtcpReceiveData();
   void timeoutData();
-  void transOneshotData(void *data);
+  void transOneshotData(unsigned data);
 
  private:
   void InitEncoder(unsigned chans,unsigned samprate,unsigned bitrate,
