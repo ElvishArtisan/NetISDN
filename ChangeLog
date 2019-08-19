@@ -467,3 +467,6 @@
 2019-08-19 Fred Gleason <fredg@paravelsystems.com>
 	* Fixed a bug in netisdn(1) that was causing an 'unknown signal'
 	message to be generated at startup.
+2019-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Removed instance labels from Qt classes in
+	'netisdn/audiosettings_dialog.cpp'.

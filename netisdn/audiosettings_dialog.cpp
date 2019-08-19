@@ -2,9 +2,7 @@
 //
 // Edit an AudioSettings object.
 //
-//   (C) Copyright 2002-2003,2008 Fred Gleason <fredg@paravelsystems.com>
-//
-//    $Id: audiosettings_dialog.cpp,v 1.25 2008/11/14 18:34:02 cvs Exp $
+//   (C) Copyright 2002-2019 Fred Gleason <fredg@paravelsystems.com>
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU Library General Public License 
@@ -86,7 +84,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Transmit Format
   //
-  lib_trans_format_box=new QComboBox(this,"lib_trans_format_box");
+  lib_trans_format_box=new QComboBox(this);
   lib_trans_format_box->setGeometry(120,57,150,20);
   lib_trans_format_box->setFont(font);
   connect(lib_trans_format_box,SIGNAL(activated(int)),
@@ -100,7 +98,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Transmit Channels
   //
-  lib_trans_channels_box=new QComboBox(this,"lib_trans_channels_box");
+  lib_trans_channels_box=new QComboBox(this);
   lib_trans_channels_box->setGeometry(120,79,60,20);
   lib_trans_channels_box->setFont(font);
   connect(lib_trans_channels_box,SIGNAL(activated(int)),
@@ -117,7 +115,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Transmit Sample Rate
   //
-  lib_trans_samprate_box=new QComboBox(this,"lib_trans_samprate_box");
+  lib_trans_samprate_box=new QComboBox(this);
   lib_trans_samprate_box->setGeometry(120,101,100,20);
   lib_trans_samprate_box->setFont(font);
   connect(lib_trans_samprate_box,SIGNAL(activated(int)),
@@ -132,7 +130,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Transmit Bitrate
   //
-  lib_trans_bitrate_box=new QComboBox(this,"lib_trans_bitrate_box");
+  lib_trans_bitrate_box=new QComboBox(this);
   lib_trans_bitrate_box->setGeometry(120,123,100,20);
   lib_trans_bitrate_box->setFont(font);
   lib_trans_bitrate_label=new QLabel(lib_trans_bitrate_box,tr("&Bitrate:"),this,
@@ -145,13 +143,12 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Transmit Hyperstreaming
   //
-  lib_trans_hyperstream_box=new QComboBox(this,"lib_trans_hyperstream_box");
+  lib_trans_hyperstream_box=new QComboBox(this);
   lib_trans_hyperstream_box->setGeometry(120,145,100,20);
   lib_trans_hyperstream_box->setFont(font);
   lib_trans_hyperstream_box->insertItem(tr("Disabled"));
   lib_trans_hyperstream_box->insertItem(tr("Enabled"));
-  label=new QLabel(lib_trans_hyperstream_box,tr("&HyperStream:"),this,
-		   "lib_trans_hyperstream_label");
+  label=new QLabel(lib_trans_hyperstream_box,tr("&HyperStream:"),this);
   label->setGeometry(10,145,105,20);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -166,13 +163,12 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Receive Format
   //
-  lib_recv_format_box=new QComboBox(this,"lib_recv_format_box");
+  lib_recv_format_box=new QComboBox(this);
   lib_recv_format_box->setGeometry(120,197,150,20);
   lib_recv_format_box->setFont(font);
   connect(lib_recv_format_box,SIGNAL(activated(int)),
 	  this,SLOT(settingsChangedData(int)));
-  lib_format_label=new QLabel(lib_recv_format_box,tr("&Algorithm:"),
-			      this,"lib_format_label");
+  lib_format_label=new QLabel(lib_recv_format_box,tr("&Algorithm:"),this);
   lib_format_label->setGeometry(10,197,105,20);
   lib_format_label->setFont(font);
   lib_format_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -180,7 +176,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Receive Channels
   //
-  lib_recv_channels_box=new QComboBox(this,"lib_recv_channels_box");
+  lib_recv_channels_box=new QComboBox(this);
   lib_recv_channels_box->setGeometry(120,219,60,20);
   lib_recv_channels_box->setFont(font);
   connect(lib_recv_channels_box,SIGNAL(activated(int)),
@@ -188,8 +184,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   connect(lib_recv_channels_box,SIGNAL(activated(int)),
 	  this,SLOT(settingsChangedData(int)));
   lib_recv_channels_label=new QLabel(lib_recv_channels_box,
-					tr("&Channels:"),
-					this,"lib_channels_label");
+				     tr("&Channels:"),this);
   lib_recv_channels_label->setGeometry(10,219,105,20);
   lib_recv_channels_label->setFont(font);
   lib_recv_channels_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -197,11 +192,10 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Receive Bitrate
   //
-  lib_recv_bitrate_box=new QComboBox(this,"lib_recv_bitrate_box");
+  lib_recv_bitrate_box=new QComboBox(this);
   lib_recv_bitrate_box->setGeometry(120,241,100,20);
   lib_recv_bitrate_box->setFont(font);
-  lib_recv_bitrate_label=new QLabel(lib_recv_bitrate_box,tr("&Bitrate:"),this,
-			       "lib_recv_bitrate_label");
+  lib_recv_bitrate_label=new QLabel(lib_recv_bitrate_box,tr("&Bitrate:"),this);
   lib_recv_bitrate_label->setGeometry(10,241,105,20);
   lib_recv_bitrate_label->setFont(font);
   lib_recv_bitrate_label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -209,7 +203,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Receive Hyperstreaming
   //
-  lib_recv_hyperstream_box=new QComboBox(this,"lib_recv_hyperstream_box");
+  lib_recv_hyperstream_box=new QComboBox(this);
   lib_recv_hyperstream_box->setGeometry(120,263,100,20);
   lib_recv_hyperstream_box->setFont(font);
   lib_recv_hyperstream_box->insertItem(tr("Disabled"));
@@ -231,7 +225,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Input Device
   //
-  lib_input_box=new QComboBox(this,"lib_input_box");
+  lib_input_box=new QComboBox(this);
   lib_input_box->setGeometry(120,315,sizeHint().width()-130,20);
   lib_input_box->setFont(font);
   QLabel *lib_input_label=
@@ -244,7 +238,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Local Voice Processor
   //
-  lib_trans_preprocess_box=new QCheckBox(this,"lib_trans_preprocess_box");
+  lib_trans_preprocess_box=new QCheckBox(this);
   lib_trans_preprocess_box->setGeometry(120,337,15,15);
   lib_trans_preprocess_label=
     new QLabel(lib_trans_preprocess_box,tr("Enable &Voice Processor"),this,
@@ -256,7 +250,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Output Device
   //
-  lib_output_box=new QComboBox(this,"lib_output_box");
+  lib_output_box=new QComboBox(this);
   lib_output_box->setGeometry(120,359,sizeHint().width()-130,20);
   lib_output_box->setFont(font);
   QLabel *lib_output_label=
@@ -269,7 +263,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Remote Voice Processor
   //
-  lib_recv_preprocess_box=new QCheckBox(this,"lib_recv_preprocess_box");
+  lib_recv_preprocess_box=new QCheckBox(this);
   lib_recv_preprocess_box->setGeometry(120,381,15,15);
   lib_recv_preprocess_label=
     new QLabel(lib_recv_preprocess_box,tr("Enable &Voice Processor"),this,
@@ -288,7 +282,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Username
   //
-  lib_username_edit=new QLineEdit(this,"lib_username_edit");
+  lib_username_edit=new QLineEdit(this);
   lib_username_edit->setGeometry(120,425,sizeHint().width()-130,20);
   lib_username_edit->setFont(font);
   label=new QLabel(lib_username_edit,tr("&Login Name:"),this,
@@ -300,7 +294,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   //  Password Button
   //
-  QPushButton *button=new QPushButton(this,"button");
+  QPushButton *button=new QPushButton(this);
   button->setGeometry(140,447,sizeHint().width()-180,26);
   button->setFont(bold_font);
   button->setText(tr("Change &Password"));
@@ -309,7 +303,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Display Name
   //
-  lib_name_edit=new QLineEdit(this,"lib_name_edit");
+  lib_name_edit=new QLineEdit(this);
   lib_name_edit->setGeometry(120,481,sizeHint().width()-130,20);
   lib_name_edit->setFont(font);
   label=new QLabel(lib_name_edit,tr("Display &Name:"),this,
@@ -321,10 +315,10 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Phone
   //
-  lib_phone_edit=new QLineEdit(this,"lib_phone_edit");
+  lib_phone_edit=new QLineEdit(this);
   lib_phone_edit->setGeometry(120,503,sizeHint().width()-130,20);
   lib_phone_edit->setFont(font);
-  label=new QLabel(lib_phone_edit,tr("&Phone Number:"),this,"lib_phone_label");
+  label=new QLabel(lib_phone_edit,tr("&Phone Number:"),this);
   label->setGeometry(10,503,105,20);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -332,11 +326,11 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   // Email
   //
-  lib_email_edit=new QLineEdit(this,"lib_email_edit");
+  lib_email_edit=new QLineEdit(this);
   lib_email_edit->setGeometry(120,525,sizeHint().width()-130,20);
   lib_email_edit->setFont(font);
   label=
-    new QLabel(lib_email_edit,tr("&E-mail Address:"),this,"lib_email_label");
+    new QLabel(lib_email_edit,tr("&E-mail Address:"),this);
   label->setGeometry(10,525,105,20);
   label->setFont(font);
   label->setAlignment(AlignRight|AlignVCenter|ShowPrefix);
@@ -344,7 +338,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   //  Advanced Button
   //
-  button=new QPushButton(this,"advanced_button");
+  button=new QPushButton(this);
   button->setGeometry((sizeHint().width()-200)/2,553,200,50);
   button->setFont(bold_font);
   button->setText(tr("GPIO/&Advanced Settings"));
@@ -353,7 +347,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   //  Ok Button
   //
-  QPushButton *ok_button=new QPushButton(this,"ok_button");
+  QPushButton *ok_button=new QPushButton(this);
   ok_button->setGeometry(sizeHint().width()-180,sizeHint().height()-60,80,50);
   ok_button->setDefault(true);
   ok_button->setFont(button_font);
@@ -363,7 +357,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
   //
   //  Cancel Button
   //
-  QPushButton *cancel_button=new QPushButton(this,"cancel_button");
+  QPushButton *cancel_button=new QPushButton(this);
   cancel_button->
     setGeometry(sizeHint().width()-90,sizeHint().height()-60,80,50);
   cancel_button->setFont(button_font);
@@ -423,7 +417,7 @@ AudioSettingsDialog::AudioSettingsDialog(AudioSettings *settings,
     }
   }
   CheckTransmitSettings(lib_lib->format(AudioSettings::Transmit,false),
-			lib_lib->bitRate(AudioSettings::Transmit,false));
+  			lib_lib->bitRate(AudioSettings::Transmit,false));
 
   //
   // Receive Settings
