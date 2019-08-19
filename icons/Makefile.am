@@ -1,10 +1,8 @@
-## automake.am
+## Makefile.am
 ##
-## icons/automake.am for NetISDN
+## icons/Makefile.am for NetISDN
 ##
-## (C) Copyright 2008 Fred Gleason <fredg@salemradiolabs.com>
-##
-##      $Id: Makefile.am,v 1.7 2009/01/29 15:31:08 pcvs Exp $
+## (C) Copyright 2008-2019 Fred Gleason <fredg@salemradiolabs.com>
 ##
 ##   This program is free software; you can redistribute it and/or modify
 ##   it under the terms of the GNU General Public License version 2 as
@@ -22,10 +20,28 @@
 ##
 ## Use automake to process this into a Makefile.in
 
+install-exec-am:	
+	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/22x22/apps
+	cp netisdn-22x22.xpm $(DESTDIR)@prefix@/share/icons/hicolor/22x22/apps/netisdn.xpm
+	mkdir -p $(DESTDIR)@prefix@/share/icons/hicolor/48x48/apps
+	cp netisdn-48x48.xpm $(DESTDIR)@prefix@/share/icons/hicolor/48x48/apps/netisdn.xpm
 
-EXTRA_DIST = netisdn.res netisdn.ico autorun.inf.in netisdn-48x48.xpm\
-             netisdn-22x22.xpm admin.xpm user.xpm active_call.xpm call.xpm\
-             greenball.xpm redball.xpm whiteball.xpm
+uninstall-local:	
+	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/22x22/apps/netisdn.xpm
+	rm -f $(DESTDIR)@prefix@/share/icons/hicolor/48x48/apps/netisdn.xpm
+
+EXTRA_DIST = netisdn.res\
+             netisdn.ico\
+             autorun.inf.in\
+             netisdn-48x48.xpm\
+             netisdn-22x22.xpm\
+             admin.xpm\
+             user.xpm\
+             active_call.xpm\
+             call.xpm\
+             greenball.xpm\
+             redball.xpm\
+             whiteball.xpm
 
 CLEANFILES = *~
 DISTCLEANFILES = *.inf

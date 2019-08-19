@@ -461,3 +461,6 @@
 	* Cleaned up warnings.
 2019-08-19 Fred Gleason <fredg@paravelsystems.com>
 	* Made the GeoIP depedency conditional.
+2019-08-19 Fred Gleason <fredg@paravelsystems.com>
+	* Converted netsipd(8) to use Systemd.
+	* Updated the 'make rpm' target.

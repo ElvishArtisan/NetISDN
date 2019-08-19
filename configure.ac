@@ -62,9 +62,33 @@ AC_SUBST(VENDOR,$ar_gcc_distro)
 AC_SUBST(ARCH,$ar_gcc_arch)
 
 #
+# Determine number of available CPU cores for building packages
+#
+AX_COUNT_CPUS([],[])
+if test $CPU_COUNT -lt 2 ; then
+   AC_SUBST(CPUS_AVAIL,1)
+else
+   if test $CPU_COUNT -gt 16 ; then
+      AC_SUBST(CPUS_AVAIL,16)
+   else
+      AC_SUBST(CPUS_AVAIL,$(($CPU_COUNT-1)))
+   fi
+fi
+
+#
 # Determine Distro
 #
 AR_GET_DISTRO()
+AC_SUBST(DISTRO,$ar_gcc_distro)
+if test $ar_gcc_distro = suse ; then
+  AC_SUBST(MYSQL_PKG,"mysql")
+  AC_SUBST(QT4_MYSQL_PKG,"qt-mysql")
+  AC_SUBST(DOC_PATH,"/usr/share/doc/rivendell")
+else
+  AC_SUBST(DOC_PATH,"/usr/share/doc/rivendell-$PACKAGE_VERSION")
+  AC_SUBST(MYSQL_PKG,"mariadb")
+  AC_SUBST(QT4_MYSQL_PKG,"qt-mysql")
+fi
 
 #
 # Option Switches
@@ -195,7 +219,6 @@ fi
 
 AC_CONFIG_FILES([ \
     Makefile \
-    rc.netisdn \
     netisdn.spec \
     slack-desc \
     make_slack \
@@ -208,12 +231,13 @@ AC_CONFIG_FILES([ \
     netadmin/Makefile \
     netfilter/Makefile \
     client/Makefile \
+    systemd/Makefile \
+    systemd/netisdn.service \
     xdg/Makefile \
     docs/Makefile \
     docs/tables/Makefile ])
 AC_OUTPUT()
 
-chmod 755 ./rc.netisdn
 chmod 755 ./make_slack
 
 AC_MSG_NOTICE()

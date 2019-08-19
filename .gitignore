@@ -29,3 +29,4 @@ netisdn/netisdn
 netsipd/netsipd
 rc.netisdn
 slack-desc
+systemd/netisdn.service

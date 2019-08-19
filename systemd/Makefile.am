@@ -1,15 +1,12 @@
 ## Makefile.am
 ##
-## xdg/automake.am for NetISDN
-##
 ## Use automake to process this into a Makefile.in
 ##
-##   (C) Copyright 2008-2019 Fred Gleason <fredg@paravelsystems.com>
+##   (C) Copyright 2019 Fred Gleason <fredg@paravelsystems.com>
 ##
 ##   This program is free software; you can redistribute it and/or modify
-##   it under the terms of the GNU General Public License as
-##   published by the Free Software Foundation; either version 2 of
-##   the License, or (at your option) any later version.
+##   it under the terms of the GNU General Public License version 2 as
+##   published by the Free Software Foundation.
 ##
 ##   This program is distributed in the hope that it will be useful,
 ##   but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,14 +18,21 @@
 ##   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ##
 
-install-exec-am:	
-	mkdir -p $(DESTDIR)@prefix@/share/applications
-	cp netisdn.desktop $(DESTDIR)@prefix@/share/applications/
+install-exec-local:	
+	mkdir -p $(DESTDIR)/lib/systemd/system
+	cp netisdn.service $(DESTDIR)/lib/systemd/system/netisdn.service
+	./daemon-reload.sh
 
 uninstall-local:	
-	rm -f $(DESTDIR)@prefix@/share/applications/netisdn.desktop
+	rm -f $(DESTDIR)/lib/systemd/system/netisdn.service
+	./daemon-reload.sh
 
-EXTRA_DIST = netisdn.desktop
+EXTRA_DIST = daemon-reload.sh\
+             netisdn.service.in
 
 CLEANFILES = *~
-MAINTAINERCLEANFILES = *~ Makefile.in configure aclocal.m4
+
+DISTCLEANFILES = Makefile.in\
+                 *.service
+
+MAINTAINERCLEANFILES = *~

@@ -1,7 +1,7 @@
 ## netisdn.spec.in
 ##
 ##    The NetISDN IP Codec System
-##    Copyright (C) 2008 Fred Gleason <fredg@paravelsystems.com>
+##    Copyright (C) 2008-2019 Fred Gleason <fredg@paravelsystems.com>
 ##
 ##    This program is free software; you can redistribute it and/or modify
 ##    it under the terms of version 2 of the GNU General Public License as
@@ -36,43 +36,74 @@ Group: Productivity/Multimedia/Other
 Requires: netisdn
 
 %description server
-This is the netsipd(8) server required for the NetISDN system.
+This is the netsipd(8) presence server required for the NetISDN system.
 
 %prep
 %setup
-./configure --prefix=@LOCAL_PREFIX@
+%configure
+
 
 %build
-make
+make -j @CPUS_AVAIL@
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/@NET_LIB_PATH@
-cp lib/.libs/libnetisdn-@VERSION@.so $RPM_BUILD_ROOT@LOCAL_PREFIX@/@NET_LIB_PATH@/
-ln -s @LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn-@VERSION@.so $RPM_BUILD_ROOT@LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn.so
-mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin
-cp netisdn/.libs/netisdn $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-cp netadmin/.libs/netadmin $RPM_BUILD_ROOT@LOCAL_PREFIX@/bin/
-mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin
-cp netsipd/.libs/netsipd $RPM_BUILD_ROOT@LOCAL_PREFIX@/sbin/
-mkdir -p $RPM_BUILD_ROOT/etc/init.d
-cp rc.netisdn $RPM_BUILD_ROOT/etc/init.d/netisdn
-mkdir -p $RPM_BUILD_ROOT/opt/kde3/share/icons/hicolor/48x48/apps
-cp icons/netisdn-48x48.xpm $RPM_BUILD_ROOT/opt/kde3/share/icons/hicolor/48x48/apps/netisdn.xpm
-mkdir -p $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications
-cp xdg/netisdn.desktop $RPM_BUILD_ROOT@LOCAL_PREFIX@/share/applications/netisdn.desktop
+make install DESTDIR=$RPM_BUILD_ROOT
+rm -f $RPM_BUILD_ROOT/%{_libdir}/*.a
+rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
+
 
 %post
-ldconfig
+/sbin/ldconfig
+if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
+  %{_bindir}/gtk-update-icon-cache -f --quiet %{_datadir}/icons/hicolor || :
+fi
+
+
+%post server
+/sbin/ldconfig
+/bin/systemctl daemon-reload
+/bin/systemctl restart netisdn
+/bin/systemctl enable netisdn
+if test ! -e /etc/netsipd.conf ; then
+  cp @DOC_PATH@/netsipd.conf-sample /etc/netsipd.conf
+fi
+if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
+  %{_bindir}/gtk-update-icon-cache -f --quiet %{_datadir}/icons/hicolor || :
+fi
+
+
+%postun
+/sbin/ldconfig
+
+
+%preun server
+/bin/systemctl stop netisdn
+/bin/systemctl disable netisdn
+
+
+%postun server
+/sbin/ldconfig
+/bin/systemctl daemon-reload
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+
 %files
 %defattr(-,root,root)
+%{_libdir}/libnetisdn-@VERSION@.so
+%{_libdir}/libnetisdn.so
+%{_bindir}/netisdn
+%{_datadir}/icons/hicolor/22x22/apps/netisdn.xpm
+%{_datadir}/icons/hicolor/48x48/apps/netisdn.xpm
+%{_datadir}/applications/netisdn.desktop
 %doc README 
 %doc ChangeLog 
 %doc netsipd.conf-sample
+%doc icons/netisdn-22x22.xpm
 %doc icons/netisdn-48x48.xpm
 %doc docs/rfc2327.txt
 %doc docs/rfc2616.txt
@@ -82,18 +113,17 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/rfc3550.txt
 %doc docs/rfc3551.txt
 %doc docs/rfc5215.txt
-@LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn-@VERSION@.so
-@LOCAL_PREFIX@/@NET_LIB_PATH@/libnetisdn.so
-@LOCAL_PREFIX@/bin/netisdn
-/opt/kde3/share/icons/hicolor/48x48/apps/netisdn.xpm
-@LOCAL_PREFIX@/share/applications/netisdn.desktop
+
 
 %files server
-@LOCAL_PREFIX@/bin/netadmin
-@LOCAL_PREFIX@/sbin/netsipd
-/etc/init.d/netisdn
+%{_bindir}/netadmin
+%{_sbindir}/netsipd
+/lib/systemd/system/netisdn.service
+
 
 %changelog
+* Mon Aug 19 2019 Fred Gleason <fredg@paravelsystems.com>
+-- Packaged for RHEL 7.
 * Fri Sep 26 2008 Fred Gleason <fredg@paravelsystems.com>
 -- Added RFC5215.
 * Mon Sep 08 2008 Fred Gleason <fredg@paravelsystems.com>
